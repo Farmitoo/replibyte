@@ -1,0 +1,9 @@
+###> symfony/framework-bundle ###
+composer.lock
+/vendor/
+/var/
+/tests/App/cache
+/tests/App/logs
+/tests/App/.env
+etc/phpunit/.phpunit.result.cache
+###< symfony/framework-bundle ###

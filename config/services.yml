@@ -1,0 +1,27 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+    bind:
+      $distantPDOConnection: '@Farmitoo\ReplibyteBundle\Connection\DistantPDOConnection'
+      $localPDOConnection: '@Farmitoo\ReplibyteBundle\Connection\LocalPDOConnection'
+
+  Farmitoo\ReplibyteBundle\:
+    resource: "../src/*"
+
+  Farmitoo\ReplibyteBundle\Connection\DistantPDOConnection:
+    class: 'Farmitoo\ReplibyteBundle\Connection\PDOConnection'
+    arguments:
+      $dbHost: ~
+      $dbName: ~
+      $dbUser: ~
+      $dbPassword: ~
+
+  Farmitoo\ReplibyteBundle\Connection\LocalPDOConnection:
+      class: 'Farmitoo\ReplibyteBundle\Connection\PDOConnection'
+      arguments:
+        $dbHost: ~
+        $dbName: ~
+        $dbUser: ~
+        $dbPassword: ~

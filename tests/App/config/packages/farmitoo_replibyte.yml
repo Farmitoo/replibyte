@@ -1,0 +1,12 @@
+farmitoo_replibyte:
+    databases:
+        distant: # the one we want the subset of data
+            host: "%env(string:DB_TO_REPLICATE_HOST)%"
+            name: "%env(string:DB_TO_REPLICATE_NAME)%"
+            user: "%env(string:DB_TO_REPLICATE_USER)%"
+            password: "%env(string:DB_TO_REPLICATE_PASSWORD)%"
+        local: # the one we want to insert data
+            host: "%env(string:DB_LOCAL_HOST)%"
+            name: "%env(string:DB_LOCAL_NAME)%"
+            user: "%env(string:DB_LOCAL_USER)%"
+            password: "%env(string:DB_LOCAL_PASSWORD)%"
