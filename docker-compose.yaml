@@ -30,7 +30,7 @@ services:
     networks:
       default:
         aliases:
-          - www.people.com.local
+          - www.replibyte.com.local
 
   php-fpm:
     build: etc/docker/php-fpm
