@@ -1,0 +1,40 @@
+services:
+  mysql-local:
+    image: mysql:5.6.33
+    environment:
+      MYSQL_DATABASE: app-local
+      MYSQL_PASSWORD: app-local
+      MYSQL_ROOT_PASSWORD: app-local
+      MYSQL_USER: app-local
+    ports:
+      - "3306:3306"
+
+  mysql-distant:
+    image: mysql:5.6.33
+    environment:
+      MYSQL_DATABASE: app-distant
+      MYSQL_PASSWORD: app-distant
+      MYSQL_ROOT_PASSWORD: app-distant
+      MYSQL_USER: app-distant
+    ports:
+      - "3300:3306"
+
+  webserver:
+    image: nginx:alpine
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html:cached
+      - ./etc/docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    networks:
+      default:
+        aliases:
+          - www.people.com.local
+
+  php-fpm:
+    build: etc/docker/php-fpm
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+

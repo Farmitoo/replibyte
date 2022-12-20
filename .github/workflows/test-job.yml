@@ -1,0 +1,63 @@
+name: Test
+
+on:
+  push:
+    branches-ignore:
+      - 'staging-*'
+      - 'main'
+    tags-ignore:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    services:
+      mysql-locale:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      mysql-distant:
+        image: mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 34306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: pdo, pdo_mysql, zip, intl, calendar, soap, gd
+          ini-values: post_max_size=256M
+          tools: pecl
+      - name: Run composer install
+        run: |
+          cp .env.test .env
+          composer self-update --2 --no-interaction
+          composer validate --no-check-all --no-check-publish
+          composer install --prefer-dist --no-interaction --no-scripts
+          composer dump-autoload
+
+      - name: Run phpunit
+        run: |
+          ./vendor/bin/phpunit -c etc/phpunit/phpunit.xml -d memory_limit=-1
+        env:
+          DB_USER_LOCAL: root
+          DB_PASSWORD_LOCAL: password
+          DB_HOST_LOCAL: 127.0.0.1:33306
+          DB_NAME_LOCAL: testing
+          DB_USER_DISTANT: root
+          DB_PASSWORD_DISTANT: password
+          DB_HOST_DISTANT: 127.0.0.1:34306
+          DB_NAME_DISTANT: testing
