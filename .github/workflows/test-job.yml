@@ -43,7 +43,6 @@ jobs:
           tools: pecl
       - name: Run composer install
         run: |
-          cp .env.test .env
           composer self-update --2 --no-interaction
           composer validate --no-check-all --no-check-publish
           composer install --prefer-dist --no-interaction --no-scripts
