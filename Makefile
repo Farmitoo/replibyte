@@ -1,9 +1,7 @@
 DOCKER_COMPOSE  = DOCKER_BUILDKIT=1 docker-compose
 EXEC_PHP        = $(DOCKER_COMPOSE) exec -T php-fpm
 COMPOSER        = $(EXEC_PHP) composer
-YARN            = $(EXEC_PHP) yarn
-ENCORE          = $(EXEC_PHP) ./node_modules/.bin/encore
-SYMFONY         = $(EXEC_PHP) bin/console
+SYMFONY         = $(EXEC_PHP) tests/App/console
 .PHONY: help
 
 help: ## show help messages
