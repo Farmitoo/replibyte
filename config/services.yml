@@ -6,6 +6,9 @@ services:
     bind:
       $distantPDOConnection: '@Farmitoo\ReplibyteBundle\Connection\DistantPDOConnection'
       $localPDOConnection: '@Farmitoo\ReplibyteBundle\Connection\LocalPDOConnection'
+      $appEnvironment: "%kernel.environment%"
+      $replibyteForceTableConstraints: "%replibyte_force_table_constraints%"
+      $replibyteTableCustomConfiguration: "%replibyte_table_custom_configuration%"
 
   Farmitoo\ReplibyteBundle\:
     resource: "../src/*"

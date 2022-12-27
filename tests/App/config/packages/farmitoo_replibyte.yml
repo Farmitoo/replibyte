@@ -10,3 +10,29 @@ farmitoo_replibyte:
             name: "%env(string:DB_LOCAL_NAME)%"
             user: "%env(string:DB_LOCAL_USER)%"
             password: "%env(string:DB_LOCAL_PASSWORD)%"
+    force_table_constraints:
+        - {
+            REFERENCED_TABLE_NAME: "replibyte_tag",
+            REFERENCED_COLUMN_NAME: "id",
+            TABLE_NAME: "replibyte_content",
+            COLUMN_NAME: "reference"
+        }
+    table_custom_configuration:
+        replibyte_tag:
+            limit: false # null mean no limit, but limit is done by the potential join table needed
+
+        ## Table we want some specifics data, added to common data
+        replibyte_posts_tags:
+            limit: false # for many to many relation, if the link must be kept, this allow to get all lines related to tags and posts inserted
+        replibyte_post:
+            data:
+                - "
+                    WHERE mod(#aliasTable#.id,10) = 0
+                  " # get all EVEN id
+                - "
+                    WHERE #aliasTable#.description IS NULL
+                "
+
+        ## Table we don't want to feel
+        replibyte_generated_data:
+            disabled: true

@@ -1,0 +1,16 @@
+Farmitoo\ReplibyteBundle\Tests\App\Entity\CategoryImage:
+  type: entity
+  table: replibyte_category_image
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    path:
+      type: string
+  manyToOne:
+    category:
+      targetEntity: Farmitoo\ReplibyteBundle\Tests\App\Entity\Category
+      joinColumn:
+        name: category_id
+        referencedColumnName: id

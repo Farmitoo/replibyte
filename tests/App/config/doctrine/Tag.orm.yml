@@ -1,0 +1,10 @@
+Farmitoo\ReplibyteBundle\Tests\App\Entity\Tag:
+  type: entity
+  table: replibyte_tag
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    name:
+      type: string

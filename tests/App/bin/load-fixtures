@@ -1,0 +1,12 @@
+#!/bin/bash
+
+createFixtures()
+{
+    ./tests/App/console d:d:d --if-exists --force --connection=$1 &&
+    ./tests/App/console d:d:c --connection=$1 &&
+    ./tests/App/console d:s:u --force --complete --em=$1 &&
+    ./tests/App/console d:f:l --no-interaction --em=$1
+}
+
+#createFixtures 'local'
+createFixtures 'distant'
