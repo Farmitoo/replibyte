@@ -69,7 +69,7 @@ class ExecuteReplicationCommand extends Command
 
         $io->section("confirmed");
 
-        $io->info("The process has been launch and can take a while. Please do not interrupt it.");
+        $io->info("The process has been launched and can take a while. Please do not interrupt it.");
 
         $this->databaseReplication->setWriteln(function (string|array $lines, bool $isTitle) use ($output) {
             if ($isTitle && \is_string($lines)) {

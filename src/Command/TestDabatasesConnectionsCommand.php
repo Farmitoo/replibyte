@@ -30,6 +30,7 @@ class TestDabatasesConnectionsCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln("<info>TEST DISTANT CONNECTION</info>");
+        $output->writeln(sprintf("<info>%s</info>", $this->distantPDOConnection->getHost()));
         if ($this->distantPDOConnection->testConnection()) {
             $output->writeln("✅ connexion OK");
         } else {
@@ -37,6 +38,7 @@ class TestDabatasesConnectionsCommand extends Command
         }
         $output->writeln("---");
         $output->writeln("<info>TEST LOCAL CONNECTION</info>");
+        $output->writeln(sprintf("<info>%s</info>", $this->localPDOConnection->getHost()));
         if ($this->localPDOConnection->testConnection()) {
             $output->writeln("✅ connexion OK");
         } else {
