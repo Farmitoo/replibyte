@@ -10,6 +10,7 @@ class PDOConnection implements PDOConnectionInterface
     protected string $dbName;
     protected string $dbUser;
     protected string $dbPassword;
+    protected ?\PDO $connection = null;
 
     public function __construct(string $dbHost, string $dbName, string $dbUser, string $dbPassword)
     {
@@ -19,13 +20,21 @@ class PDOConnection implements PDOConnectionInterface
         $this->dbPassword = $dbPassword;
     }
 
+    public function getHost(): string
+    {
+        return $this->dbHost;
+    }
+
     public function getPDO(): \PDO
     {
-        $connection = new \PDO(sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4;collate=utf8mb4_unicode_ci", $this->dbHost, $this->dbName), $this->dbUser, $this->dbPassword);
-        $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        $connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
+        if (null !== $this->connection) {
+            return $this->connection;
+        }
+        $this->connection = new \PDO(sprintf("mysql:host=%s;dbname=%s;charset=utf8mb4;collate=utf8mb4_unicode_ci", $this->dbHost, $this->dbName), $this->dbUser, $this->dbPassword);
+        $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->connection->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, false);
 
-        return $connection;
+        return $this->connection;
     }
 
     public function testConnection(): bool

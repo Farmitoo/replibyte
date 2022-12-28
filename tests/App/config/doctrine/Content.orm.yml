@@ -1,0 +1,12 @@
+Farmitoo\ReplibyteBundle\Tests\App\Entity\Content:
+  type: entity
+  table: replibyte_content
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    reference:
+      type: string
+    text:
+      type: text

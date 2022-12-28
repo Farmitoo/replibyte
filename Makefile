@@ -29,10 +29,17 @@ php: ## enter the webserver container
 install: ## execute `make start` then `make project-install`
 	$(MAKE) start
 	$(MAKE) project-install
+	$(MAKE) load-fixtures
 
 project-install: ## execute : composer install - yarn install - encore dev - `make db-install` - symfony cache:clear
 	$(COMPOSER) install
 	$(SYMFONY) ca:cl
+
+load-fixtures:
+	$(EXEC_PHP) ./tests/App/bin/load-fixtures
+
+execute:
+	$(EXEC_PHP) ./tests/App/console farmitoo:replibyte:execute
 
 reset: ## execute `make kill` then execute `make install`
 	$(MAKE) kill

@@ -8,5 +8,7 @@ interface PDOConnectionInterface
 {
     public function getPDO(): \PDO;
 
+    public function getHost(): string;
+
     public function testConnection(): bool;
 }

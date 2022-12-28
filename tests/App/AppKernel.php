@@ -14,6 +14,9 @@ class AppKernel extends BaseKernel
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Farmitoo\ReplibyteBundle\FarmitooReplibyteBundle(),
+            new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         ];
     }
 

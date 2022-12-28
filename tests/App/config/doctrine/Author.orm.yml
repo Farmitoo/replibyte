@@ -1,0 +1,14 @@
+Farmitoo\ReplibyteBundle\Tests\App\Entity\Author:
+  type: entity
+  table: replibyte_author
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    firstname:
+      type: string
+    lastname:
+      type: string
+    country:
+      type: string

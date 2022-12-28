@@ -1,0 +1,36 @@
+doctrine:
+  dbal:
+    default_connection: local
+    connections:
+      local:
+        url: "mysql://%env(resolve:DB_LOCAL_USER)%:%env(resolve:DB_LOCAL_PASSWORD)%@%env(resolve:DB_LOCAL_HOST)%/%env(resolve:DB_LOCAL_NAME)%"
+        driver: "pdo_mysql"
+        server_version: "5.6"
+        charset: utf8mb4
+      distant:
+        url: "mysql://%env(resolve:DB_TO_REPLICATE_USER)%:%env(resolve:DB_TO_REPLICATE_PASSWORD)%@%env(resolve:DB_TO_REPLICATE_HOST)%/%env(resolve:DB_TO_REPLICATE_NAME)%"
+        driver: "pdo_mysql"
+        server_version: "5.6"
+        charset: utf8mb4
+  orm:
+    default_entity_manager: local
+    entity_managers:
+      local:
+        connection: local
+        mappings:
+          App:
+            prefix: 'Farmitoo\ReplibyteBundle\Tests\App\Entity'
+            type: yml
+            dir: "%kernel.project_dir%/tests/App/config/doctrine/"
+            alias: App
+            is_bundle: false
+      distant:
+        connection: distant
+        mappings:
+          App:
+            prefix: 'Farmitoo\ReplibyteBundle\Tests\App\Entity'
+            type: yml
+            dir: "%kernel.project_dir%/tests/App/config/doctrine/"
+            alias: App
+            is_bundle: false
+

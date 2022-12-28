@@ -8,7 +8,13 @@
         "symfony/framework-bundle": "^6.1",
         "symfony/yaml": "^6.1",
         "symfony/console": "^6.1",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "doctrine/orm": "^2.13",
+        "symfony/dotenv": "^6.1",
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "fakerphp/faker": "^1.16"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
@@ -22,14 +28,18 @@
         }
     },
     "autoload-dev": {
-        "psr-4": { "Farmitoo\\ReplibyteBundle\\Tests\\": "Tests" }
+        "psr-4": {
+            "Farmitoo\\ReplibyteBundle\\Tests\\": "tests"
+        }
     },
     "archive": {
         "exclude": [
             "/.*",
             "/tests",
             "/bin",
-            "/etc"
+            "/etc",
+            "docker-compose.yaml",
+            "Makefile"
         ]
     },
     "extra": {
