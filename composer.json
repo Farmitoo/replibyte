@@ -32,16 +32,6 @@
             "Farmitoo\\ReplibyteBundle\\Tests\\": "tests"
         }
     },
-    "archive": {
-        "exclude": [
-            "/.*",
-            "/tests",
-            "/bin",
-            "/etc",
-            "docker-compose.yaml",
-            "Makefile"
-        ]
-    },
     "extra": {
         "symfony": {
             "allow-contrib": false,

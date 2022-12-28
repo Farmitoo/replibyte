@@ -1,0 +1,10 @@
+doctrine_migrations:
+  migrations_paths:
+    'Farmitoo\ReplibyteBundle\Tests\App\Migrations': "tests/App/Migrations"
+
+  em: local
+  storage:
+    # Default (SQL table) metadata storage configuration
+    table_storage:
+      table_name: "migration_versions"
+  transactional: false

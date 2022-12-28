@@ -173,7 +173,12 @@ class TableModelProvider implements TableModelProviderInterface, OutputAwareInte
                     $string .= \PHP_EOL;
                 }
 
+                if (empty($columns)) {
+                    $columns = ["*"];
+                }
+
                 $string = sprintf("SELECT %s FROM %s ", implode(", ", $columns), $string);
+
                 $string .= sprintf("%s", str_replace("#aliasTable#", $el->alias, $where));
                 $results = $this->dbDistant->query($string)->fetchAll(\PDO::FETCH_ASSOC);
 
