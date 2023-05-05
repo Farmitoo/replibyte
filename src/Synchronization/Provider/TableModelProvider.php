@@ -21,16 +21,20 @@ class TableModelProvider implements TableModelProviderInterface, OutputAwareInte
     protected \PDO $dbLocale;
     protected \PDO $dbDistant;
     protected ConfigurationProviderInterface $configurationProvider;
+    protected PDOConnectionInterface $distantPDOConnection;
+    protected PDOConnectionInterface $localPDOConnection;
 
     public function __construct(ConfigurationProviderInterface $configurationProvider, PDOConnectionInterface $distantPDOConnection, PDOConnectionInterface $localPDOConnection)
     {
         $this->configurationProvider = $configurationProvider;
-        $this->dbLocale = $localPDOConnection->getPDO();
-        $this->dbDistant = $distantPDOConnection->getPDO();
+        $this->distantPDOConnection = $distantPDOConnection;
+        $this->localPDOConnection = $localPDOConnection;
     }
 
     public function provideAll(): array
     {
+        $this->dbLocale = $this->localPDOConnection->getPDO();
+        $this->dbDistant = $this->distantPDOConnection->getPDO();
         $this->writeln("-----------------------------------");
         $this->writeln("Generation of Tables Models started");
         $this->writeln("-----------------------------------");

@@ -13,15 +13,17 @@ class SqlBuilder
     protected ConfigurationProviderInterface $configurationProvider;
     protected \PDO $dbLocale;
     protected array $tableModels = [];
+    protected PDOConnectionInterface $localPDOConnection;
 
     public function __construct(ConfigurationProviderInterface $configurationProvider, PDOConnectionInterface $localPDOConnection)
     {
         $this->configurationProvider = $configurationProvider;
-        $this->dbLocale = $localPDOConnection->getPDO();
+        $this->localPDOConnection = $localPDOConnection;
     }
 
     public function selectQuery(array $tableModels, string $tableName, array $columns, array $forceIds = [], array $exceptsIds = []): string
     {
+        $this->dbLocale = $this->localPDOConnection->getPDO();
         $this->tableModels = $tableModels;
         $andWhere = $this->getWhere($tableName, $forceIds);
 
