@@ -34,17 +34,21 @@ class DataTransfer implements DataTransferInterface
      * where ids are those already inserted for the given table.
      */
     protected array $tableIdInserted = [];
+    protected PDOConnectionInterface $distantPDOConnection;
+    protected PDOConnectionInterface $localPDOConnection;
 
     public function __construct(ConfigurationProviderInterface $configurationProvider, PDOConnectionInterface $distantPDOConnection, PDOConnectionInterface $localPDOConnection, SqlBuilder $sqlBuilder)
     {
-        $this->dbDistant = $distantPDOConnection->getPDO();
-        $this->dbLocale = $localPDOConnection->getPDO();
         $this->configurationProvider = $configurationProvider;
         $this->sqlBuilder = $sqlBuilder;
+        $this->distantPDOConnection = $distantPDOConnection;
+        $this->localPDOConnection = $localPDOConnection;
     }
 
     public function fromDistantToLocal(array $tableModels): void
     {
+        $this->dbLocale = $this->localPDOConnection->getPDO();
+        $this->dbDistant = $this->distantPDOConnection->getPDO();
         $this->tableModels = $tableModels;
         $this->removeDisabledTables();
         $this->fillCurrentTableReferenced();
